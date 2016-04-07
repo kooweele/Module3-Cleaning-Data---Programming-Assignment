@@ -66,6 +66,6 @@ fBodyAccJerkMag
 fBodyGyroMag
 fBodyGyroJerkMag
 
-The set of variables that were estimated from these signals are: 
+The set of variables that were estimated from these signals (appended to ending name of the feature) are: 
 mean: Mean value
 std: Standard deviation
