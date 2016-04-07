@@ -2,6 +2,7 @@ This is the code book that describes the process performned the clean up data
 Pre-condition: 
 1. All Files must be downloaded and unzipped from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
    into local drive
+   
 2. Before running, update the 3 paths specified in the following methods:
   - setWorkingPath_UCIHARDatasetPath: set the local path that contain the extracted files  
   - setWorkingPath_TrainingData: set the path that contain the training data
@@ -9,10 +10,27 @@ Pre-condition:
 
 Execution of the main routine "run_analysis" in R do these:- 
 1. Merges the training and the test sets to create one data set.
+   - Reads the Test data of subjects, activity with activity names perform, all 561 meaurements related to each observation into a dataframe and return
+   - Reads the Training data of subjects, activity with activity names perform, all 561 meaurements related to each observation into a dataframe and return
+   - Merge the 2 datasets together (without activity_id)
+   
 2. Extracts only the measurements on the mean and standard deviation for each measurement.
+   - Clean up the 561 measurements by subsetting ONLY features (column names) with keywords "mean" and "std"
+   - The intermediate dataframe will contain the subject only subject_id, activity_name and columns readings of "mean" and "std"
+   
 3. Uses descriptive activity names to name the activities in the data set
-4. Appropriately labels the data set with descriptive variable names.	
-5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+   - Clean the column names by turning them to lower cases and removing the brackets which are in the raw data
+   
+4. Appropriately labels the data set with descriptive variable names.
+   - All the column names are preserved with descriptive names as defined in "features.txt" and "features_info.txt" in small CAPS and without brackets
+   - New added columns: 
+         - subject_id: Identifier of the subject who performed the activity for each window sample. Its range is from 1 to 30.  [DONE]
+         - activity_name: The activity label on the observation performed by the subject
 
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+   - With the data frame from Step 4, a new aggregated data frame is create by grouping the results (from Step 4) with <subject_id, activity_name> 
+   - A new dataframe is of based on summary means for each column is created.
+   - The result is then output as "tidy_data.txt"
+   
 Post Condition:
 1. Result is a file named "tidy_data.txt" in your working R homedir
